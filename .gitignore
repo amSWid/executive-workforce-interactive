@@ -1,0 +1,48 @@
+venv/
+.env
+
+__pycache__/
+*.pyc
+
+mlruns/
+doc_index/
+
+.streamlit/
+
+.DS_Store
+
+# virtual environment
+venv/
+.env
+
+# python cache
+__pycache__/
+*.pyc
+
+# notebook checkpoints
+.ipynb_checkpoints/
+
+# MLFlow
+mlruns/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# temporary
+*.log
+
+# local vector db
+doc_index/
+
+# training files
+belajar_mlops.ipynb
+belajar_mlops2 (1).ipynb
+belajarag.ipynb
+use_model.ipynb
+wb_cancer (1).csv
+
+# old scripts
+data_ingestion.py
+rag_generation.py
+rag_ingestion.py
