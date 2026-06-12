@@ -1,7 +1,9 @@
 venv/
-.env
+testenv/
 
 __pycache__/
+.env
+
 *.pyc
 
 mlruns/
