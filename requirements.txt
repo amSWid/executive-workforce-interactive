@@ -20,14 +20,6 @@ scikit-learn
 streamlit
 pygments
 
-
-# Optional local model dependencies
+# embeddings (local HF)
 langchain-huggingface==0.3.1
-# transformers==4.46.0
-# datasets==3.0.2
-# tokenizers==0.20.1
-# accelerate==0.26.0
 sentence-transformers==3.2.1
-
-# Experiment tracking
-# mlflow
