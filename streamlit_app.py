@@ -115,7 +115,7 @@ with st.sidebar:
 # HEADER
 # =====================================================
 st.markdown(
-    '<div class="big-title">📊 Executive Workforce Intelligence</div>',
+    '<div class="big-title">📊 Executive Workforce Interactive</div>',
     unsafe_allow_html=True
 )
 
