@@ -6,24 +6,28 @@ langchain-core==0.3.76
 langchain-openai==0.3.33
 langchain-community==0.3.30
 langchain-groq==0.3.8
-langchain-huggingface==0.3.1
 langchain-pinecone
 langgraph
-
-transformers==4.46.0
-datasets==3.0.2
-tokenizers==0.20.1
-accelerate==0.26.0
-# sentence-transformers==3.2.1
 
 pinecone-client
 
 pypdf
 beautifulsoup4==4.14.0
 
-# mlflow
 pandas
 scikit-learn
 
 streamlit
 pygments
+
+
+# Optional local model dependencies
+# langchain-huggingface==0.3.1
+# transformers==4.46.0
+# datasets==3.0.2
+# tokenizers==0.20.1
+# accelerate==0.26.0
+# sentence-transformers==3.2.1
+
+# Experiment tracking
+# mlflow
