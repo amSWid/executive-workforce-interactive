@@ -1,4 +1,6 @@
 import streamlit as st
+groq_api_key = st.secrets["GROQ_API_KEY"]
+
 import os
 
 from dotenv import load_dotenv
@@ -182,7 +184,7 @@ st.write("")
 # =====================================================
 groq_chat = ChatGroq(
     groq_api_key=groq_api_key,
-    model_name="llama-3.3-70b-versatile"
+    model_name="llama3-8b-8192"
 )
 
 
