@@ -1,6 +1,19 @@
 import streamlit as st
 groq_api_key = st.secrets["GROQ_API_KEY"]
 
+
+from groq import Groq
+
+client = Groq(api_key=groq_api_key)
+
+test = client.chat.completions.create(
+    model="llama-3.3-70b-versatile", messages=[{"role": "user", "content": "Hello"}]
+)
+
+st.write(test.choices[0].message.content)
+
+
+
 import os
 
 from dotenv import load_dotenv
@@ -182,8 +195,12 @@ st.write("")
 # =====================================================
 # LLM
 # =====================================================
-groq_chat = ChatGroq(groq_api_key=groq_api_key, model_name="llama-3.3-70b-versatile")
-
+groq_chat = ChatGroq(
+    groq_api_key=groq_api_key,
+    model="llama-3.3-70b-versatile",
+    temperature=0,
+    request_timeout=120,
+)
 
 # =====================================================
 # PROMPT
