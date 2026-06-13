@@ -1,6 +1,9 @@
 venv/
 testenv/
 
+# secrets
+.streamlit/
+
 __pycache__/
 .env
 
@@ -43,6 +46,9 @@ belajar_mlops2 (1).ipynb
 belajarag.ipynb
 use_model.ipynb
 wb_cancer (1).csv
+
+test_embedding.py
+test_groq.py
 
 # old scripts
 data_ingestion.py

@@ -182,10 +182,7 @@ st.write("")
 # =====================================================
 # LLM
 # =====================================================
-groq_chat = ChatGroq(
-    groq_api_key=groq_api_key,
-    model_name="llama3-8b-8192"
-)
+groq_chat = ChatGroq(groq_api_key=groq_api_key, model_name="llama-3.3-70b-versatile")
 
 
 # =====================================================
@@ -225,7 +222,7 @@ prompt = PromptTemplate(
 # EMBEDDING
 # =====================================================
 embedding = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
-
+model_kwargs = {"device": "cpu"}
 
 # =====================================================
 # PINECONE

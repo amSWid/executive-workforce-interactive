@@ -1,4 +1,5 @@
 python-dotenv
+
 openai
 
 langchain==0.3.27
@@ -7,6 +8,7 @@ langchain-openai==0.3.33
 langchain-community==0.3.30
 langchain-groq==0.3.8
 langchain-pinecone
+
 langgraph
 
 pinecone>=5.0.0
@@ -20,6 +22,9 @@ scikit-learn
 streamlit
 pygments
 
-# embeddings (local HF)
+# embeddings
 langchain-huggingface==0.3.1
 sentence-transformers==3.2.1
+
+# torch fix for Python 3.11
+torch==2.5.1
