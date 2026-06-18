@@ -13,7 +13,6 @@ test = client.chat.completions.create(
 st.write(test.choices[0].message.content)
 
 
-
 import os
 
 from dotenv import load_dotenv
@@ -238,8 +237,11 @@ prompt = PromptTemplate(
 # =====================================================
 # EMBEDDING
 # =====================================================
-embedding = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
-model_kwargs = {"device": "cpu"}
+embedding = HuggingFaceEmbeddings(
+    model_name="sentence-transformers/all-MiniLM-L6-v2",
+    model_kwargs={"device": "cpu"}
+)
+
 
 # =====================================================
 # PINECONE
@@ -282,19 +284,22 @@ rag_chain = (
 # =====================================================
 # EXECUTIVE ASSISTANT
 # =====================================================
+
 st.markdown(
     '<div class="section-title">Executive Workforce Assistant</div>',
-    unsafe_allow_html=True
+    unsafe_allow_html=True,
 )
+
 
 question = st.text_area(
     "Ask an executive workforce question",
     value=st.session_state.get("question", ""),
     height=120,
-    placeholder="Example: Employee Overview ?"
+    placeholder="Example: Who is the oldest employee?",
 )
 
-if st.button("Enter"):
+
+def generate_response(question):
 
     if question.strip():
 
@@ -302,11 +307,9 @@ if st.button("Enter"):
 
             response = rag_chain.invoke(question)
 
-            st.write("")
-
             st.markdown(
                 '<div class="section-title">Executive Insight</div>',
-                unsafe_allow_html=True
+                unsafe_allow_html=True,
             )
 
             st.markdown(
@@ -315,22 +318,19 @@ if st.button("Enter"):
                     {response}
                 </div>
                 """,
-                unsafe_allow_html=True
+                unsafe_allow_html=True,
             )
 
-            st.write("")
-
-            with st.expander("📚 Retrieved Evidence (RAG Transparency)"):
-
-                docs = retriever.invoke(question)
-
-                for i, doc in enumerate(docs):
-
-                    st.markdown(f"### Chunk {i+1}")
-                    st.write(doc.page_content[:1000])
-
     else:
+
         st.warning("Please enter a question.")
+
+
+# Manual Enter Button
+
+if st.button("Enter"):
+
+    generate_response(question)
 
 
 st.divider()
@@ -339,131 +339,161 @@ st.divider()
 # =====================================================
 # EXECUTIVE QUESTION RECOMMENDATIONS
 # =====================================================
+
+
 st.markdown(
     '<div class="section-title">Executive Question Recommendations</div>',
-    unsafe_allow_html=True
+    unsafe_allow_html=True,
 )
 
-st.caption(
-    "Choose a recommended workforce analysis question or write your own."
-)
+
+st.caption("Choose a recommended workforce analysis question.")
+
+
+def recommendation_button(label, question_text):
+
+    if st.button(label):
+
+        st.session_state.question = question_text
+
+        generate_response(question_text)
 
 
 # =====================================================
 # GROUP 1
 # =====================================================
+
 st.markdown("## 👥 Workforce Overview")
+
 
 col1, col2 = st.columns(2)
 
+
 with col1:
 
-    if st.button("Executive Workforce Summary"):
-        st.session_state.question = (
-            "Provide an executive summary of workforce data."
-        )
+    recommendation_button(
+        "Executive Workforce Summary",
+        "Provide an executive summary of workforce data."
+    )
 
-    if st.button("Employee Distribution Analysis"):
-        st.session_state.question = (
-            "How are employees distributed across divisions?"
-        )
 
-    if st.button("Workforce Demographic Observation"):
-        st.session_state.question = (
-            "What workforce demographic observations can management identify?"
-        )
+    recommendation_button(
+        "Employee Distribution Analysis",
+        "How are employees distributed across divisions?"
+    )
+
+
+    recommendation_button(
+        "Workforce Demographic Observation",
+        "What workforce demographic observations can management identify?"
+    )
 
 
 with col2:
 
-    if st.button("Employee Data Quality"):
-        st.session_state.question = (
-            "Are there any employee data quality concerns?"
-        )
-
-    if st.button("Workforce Composition"):
-        st.session_state.question = (
-            "What does workforce composition look like?"
-        )
+    recommendation_button(
+        "Employee Data Quality",
+        "Are there any employee data quality concerns?"
+    )
 
 
-st.divider()
+    recommendation_button(
+        "Workforce Composition",
+        "What does workforce composition look like?"
+    )
 
 
 # =====================================================
 # GROUP 2
 # =====================================================
+
+st.divider()
+
 st.markdown("## 💰 Compensation & Organization")
+
 
 col3, col4 = st.columns(2)
 
+
 with col3:
 
-    if st.button("Compensation Structure Insight"):
-        st.session_state.question = (
-            "What compensation structure insights can management identify?"
-        )
 
-    if st.button("Salary Fairness Observation"):
-        st.session_state.question = (
-            "Are there any salary fairness or consistency observations?"
-        )
+    recommendation_button(
+        "Compensation Structure Insight",
+        "What compensation structure insights can management identify?"
+    )
 
-    if st.button("Division Performance Potential"):
-        st.session_state.question = (
-            "Which divisions may need more management attention or support?"
-        )
+
+    recommendation_button(
+        "Salary Fairness Observation",
+        "Are there any salary fairness or consistency observations?"
+    )
+
+
+    recommendation_button(
+        "Division Performance Potential",
+        "Which divisions may need more management attention or support?"
+    )
 
 
 with col4:
 
-    if st.button("Organizational Workforce Balance"):
-        st.session_state.question = (
-            "Does the workforce distribution appear balanced across divisions?"
-        )
 
-    if st.button("HR Efficiency Opportunity"):
-        st.session_state.question = (
-            "What HR efficiency opportunities may exist?"
-        )
+    recommendation_button(
+        "Organizational Workforce Balance",
+        "Does the workforce distribution appear balanced across divisions?"
+    )
 
 
-st.divider()
+    recommendation_button(
+        "HR Efficiency Opportunity",
+        "What HR efficiency opportunities may exist?"
+    )
 
 
 # =====================================================
 # GROUP 3
 # =====================================================
+
+st.divider()
+
 st.markdown("## 📈 Strategic Workforce Intelligence")
+
 
 col5, col6 = st.columns(2)
 
+
 with col5:
 
-    if st.button("Strategic HR Insight"):
-        st.session_state.question = (
-            "What strategic HR insights can management identify?"
-        )
 
-    if st.button("Workforce Opportunity"):
-        st.session_state.question = (
-            "What workforce opportunities can management identify?"
-        )
+    recommendation_button(
+        "Strategic HR Insight",
+        "What strategic HR insights can management identify?"
+    )
 
-    if st.button("Leadership Insight"):
-        st.session_state.question = (
-            "What leadership insights can management learn from this workforce?"
-        )
+
+    recommendation_button(
+        "Workforce Opportunity",
+        "What workforce opportunities can management identify?"
+    )
+
+
+    recommendation_button(
+        "Leadership Insight",
+        "What leadership insights can management learn from this workforce?"
+    )
 
 
 with col6:
 
-    if st.button("Potential Workforce Risk"):
-        st.session_state.question = (
-            "Are there any workforce risks management should consider?"
-        )
 
-    if st.button("Future Workforce Planning"):
-        st.session_state.question = (
-            "What insights may help future workforce planning?"
-        )
+    recommendation_button(
+        "Potential Workforce Risk",
+        "Are there any workforce risks management should consider?"
+    )
+
+
+    recommendation_button(
+        "Future Workforce Planning",
+        "What insights may help future workforce planning?"
+    )
